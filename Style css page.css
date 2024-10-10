@@ -1,0 +1,85 @@
+/* Gaya umum untuk halaman */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Gaya untuk kontainer form */
+.container {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 300px;
+    transition: transform 0.3s ease;
+}
+
+/* Gaya untuk form box */
+.form-box {
+    position: relative;
+}
+
+/* Efek untuk input dan textarea */
+input, textarea, select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* Gaya untuk tombol submit */
+input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+/* Efek hover pada tombol */
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+/* Gaya untuk popup error */
+.popup {
+    display: none;
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #F44336;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.popup.open-popup {
+    display: block;
+}
+
+/* Gaya untuk pesan sukses */
+.success-message {
+    display: none;
+    background-color: #4CAF50;
+    color: white;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.success-message.show {
+    display: block;
+}
+
+/* Responsif: atur tampilan untuk layar kecil */
+@media (max-width: 600px) {
+    .form-box {
+        padding: 10px; /* Kurangi padding untuk layar kecil */
+    }
+}

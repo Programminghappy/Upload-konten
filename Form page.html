@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Page</title>
+    <link rel="stylesheet" href="Style css page.css">
+</head>
+<body>
+    <div class="container">
+        <div class="form-box">
+            <h1>Form Upload</h1>
+            <form id="form">
+                <label for="tanggal">Tanggal:</label>
+                <input type="date" name="tanggal" id="tanggal" required><br>
+
+                <label for="nama">Nama:</label>
+                <input type="text" name="nama" id="nama" required><br>
+
+                <label for="keterangan">Keterangan:</label>
+                <textarea name="keterangan" id="keterangan" required></textarea><br>
+
+                <label for="link_video">Link Video:</label>
+                <input type="url" name="link_video" id="link_video" required><br>
+
+                <label for="bagian">Bagian:</label>
+                <select name="bagian" id="bagian" required>
+                    <option value="">Select</option>
+                    <option value="Blok AB">Blok AB</option>
+                    <option value="Kuliner">Kuliner</option>
+                    <option value="Selain Blok AB">Selain Blok AB</option>
+                    <option value="Keramaian">Keramaian</option>
+                </select><br>
+
+                <label for="kategori">Kategori:</label>
+                <select name="kategori" id="kategori" required>
+                    <option value="">Select</option>
+                    <option value="Video">Video</option>
+                    <option value="Feed">Feed</option>
+                </select><br>
+
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+
+        <!-- Popup for missing fields -->
+        <div id="error-popup" class="popup"></div>
+
+        <!-- Success message -->
+        <div id="success-message" class="success-message">
+            <h2>Terima kasih telah upload hari ini!</h2>
+            <p id="motivational-message"></p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('form').addEventListener('submit', function (e) {
+            e.preventDefault(); // Mencegah pengiriman form secara default
+
+            const formData = {
+                tanggal: document.getElementById('tanggal').value,
+                nama: document.getElementById('nama').value,
+                keterangan: document.getElementById('keterangan').value,
+                link_video: document.getElementById('link_video').value,
+                bagian: document.getElementById('bagian').value,
+                kategori: document.getElementById('kategori').value,
+            };
+
+            // Mengirim data ke server
+            fetch('https://script.google.com/macros/s/AKfycbzJ28ssTWSPoLhBjWPUiqU3_5ZP8Z42HRg-FuSK22kEmrpOk2CaO52C54YKxpnWa2A/exec', {
+                method: 'POST',
+                body: JSON.stringify(formData),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok: ' + response.statusText);
+                }
+                return response.text();
+            })
+            .then(data => {
+                console.log(data);
+                document.getElementById('success-message').classList.add('show'); // Tampilkan pesan sukses
+                setTimeout(() => {
+                    window.location.href = 'thank-you.html'; // Alihkan ke halaman terima kasih
+                }, 2000); // Misalnya, 2 detik
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showErrorPopup('Error submitting form. Please try again later.'); // Tampilkan popup error jika ada kesalahan
+            });
+        });
+
+        // Fungsi untuk menampilkan popup error
+        function showErrorPopup(errorMessage) {
+            const errorPopup = document.getElementById('error-popup');
+            errorPopup.textContent = errorMessage;
+            errorPopup.classList.add('open-popup');
+            setTimeout(() => {
+                errorPopup.classList.remove('open-popup');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

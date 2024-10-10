@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <style>
+        /* Tambahan untuk gaya popup dan animasi */
+        .popup {
+            display: none; /* Popup tersembunyi secara default */
+            background-color: red;
+            color: white;
+            padding: 10px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 5px;
+            z-index: 1000;
+        }
+
+        .open-popup {
+            display: block; /* Tampilkan popup saat dibuka */
+        }
+
+        .success {
+            border: 2px solid green;
+            animation: success-animation 0.5s;
+        }
+
+        .error {
+            border: 2px solid red;
+            animation: error-animation 0.5s;
+        }
+
+        @keyframes success-animation {
+            0% { background-color: #e0ffe0; }
+            100% { background-color: #fff; }
+        }
+
+        @keyframes error-animation {
+            0% { background-color: #ffe0e0; }
+            100% { background-color: #fff; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="login-box">
+            <h1>Login</h1>
+            <form id="login-form">
+                <label>Username:</label>
+                <input type="text" name="username" id="username" required><br><br>
+                <label>Password:</label>
+                <input type="password" name="password" id="password" required><br><br>
+                <input type="submit" value="Login" id="submit-btn">
+            </form>
+            <div class="popup" id="error-popup">
+                <p>Invalid username or password!</p>
+            </div>
+        </div>
+    </div>
+    <script>
+        const form = document.getElementById('login-form');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if (validateLogin(username, password)) {
+                document.getElementById('username').classList.add('success');
+                document.getElementById('password').classList.add('success');
+                
+                // Redirect to the next page after a brief delay to show success animation
+                setTimeout(() => {
+                    window.location.href = "Form page.html"; // Ubah ini sesuai halaman tujuan
+                }, 1000); // Alihkan setelah 1 detik
+            } else {
+                document.getElementById('username').classList.add('error');
+                document.getElementById('password').classList.add('error');
+                showErrorPopup();
+            }
+        });
+
+        function validateLogin(username, password) {
+            const users = [
+                {username: 'aryasha', password: 'digital agency'},
+                {username: 'iqbal', password: 'digital agency'},
+                {username: 'nadia', password: 'digital agency'},
+                {username: 'latipah', password: 'digital agency'},
+                {username: 'risma', password: 'digital agency'},
+                {username: 'mutia', password: 'digital agency'},
+                {username: 'regza', password: 'digital agency'}
+            ];
+
+            return users.some(user => user.username === username && user.password === password);
+        }
+
+        function showErrorPopup() {
+            const errorPopup = document.getElementById('error-popup');
+            errorPopup.classList.add('open-popup');
+            setTimeout(function() {
+                errorPopup.classList.remove('open-popup');
+                document.getElementById('username').value = '';
+                document.getElementById('password').value = '';
+            }, 3000); // Popup akan hilang setelah 3 detik
+        }
+    </script>
+</body>
+</html>
